@@ -21,10 +21,12 @@ public class ClientController {
 
         List<Client> clients = new ArrayList<>();
         Client clientOne = Client.builder().name("Renan").surname("Silva").email("rpedrodasilva10@gmail.com").build();
-        Client clientTwo = Client.builder().name("Priscila").surname("Silva").email("pridelicia@gmail.com").build();
+        Client clientTwo = Client.builder().name("Priscila").surname("Silva").email("prisilva@gmail.com").build();
+        Client clientThree = Client.builder().name("Ricardo").surname("Oliveira").email("roliveira@gmail.com").build();
 
         clients.add(clientOne);
         clients.add(clientTwo);
+        clients.add(clientThree);
 
         return clients;
 
