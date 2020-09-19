@@ -27,9 +27,9 @@ public class Client {
     private String name;
     @Column(nullable = false)
     private String surname;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDate birthDate;
 
 }
