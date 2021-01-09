@@ -1,20 +1,21 @@
 package br.clientsapi.clientsapi.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import br.clientsapi.clientsapi.entity.Client;
+import br.clientsapi.clientsapi.exception.ApiException;
+import br.clientsapi.clientsapi.repository.ClientRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import br.clientsapi.clientsapi.entity.Client;
-import br.clientsapi.clientsapi.repository.ClientRepository;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.client.HttpStatusCodeException;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * ClientService
  */
 @Service
+@Slf4j
 public class ClientService {
 
     @Autowired
@@ -24,20 +25,33 @@ public class ClientService {
         return repository.findAll();
     }
 
-    public Optional<Client> getClientById(Long clientId) {
-        return repository.findById(clientId);
+    public Client getClientById(Long clientId) throws ApiException {
+        Optional<Client> optClient = repository.findById(clientId);
+        if (optClient.isEmpty()) {
+            throw new ApiException(HttpStatus.NOT_FOUND.value(), "Dados de entrada inválidos!", "Cliente não encontrado", new Exception());
+        }
+        return optClient.get();
+
     }
 
     public Client createClient(Client newClient) {
         return repository.save(newClient);
     }
 
-    public void deleteClient(Long clientId) {
-        repository.delete(repository.findById(clientId).get());
+    public void deleteClient(Long clientId) throws ApiException {
+        try {
+            Optional<Client> optClient = repository.findById(clientId);
+            if (optClient.isPresent()) {
+                repository.delete(optClient.get());
+            } else {
+                throw new ApiException(HttpStatus.BAD_REQUEST.value(), "Cliente não encontrado.", "Não foi possível localizar o cliente", new Exception());
+            }
+        } catch (Exception e) {
+            throw new ApiException(HttpStatus.BAD_REQUEST.value(), "Não foi possível deletar o recurso.", e.getLocalizedMessage(), e);
+        }
     }
 
     public Client updateClient(Client clientData) {
-
         Optional<Client> optionalClient = repository.findById(clientData.getId());
         if (optionalClient.isPresent()) {
             Client targetClient = optionalClient.get();
