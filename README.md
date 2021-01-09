@@ -12,11 +12,17 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 - [X] Delete client
 - [X] List clients
 - [X] Find a specific client
+- [X] Control all operations above with DTO's pattern.
 
-### Database 
+**Implement Exception handling**
+- [ ] Create models and classes for exception handling
+- [ ] Define exception handling in the service layer 
+
+**Database** 
 - [ ] Persist the previous task results with [PostgreSQL](https://github.com/postrgres)
 - [ ] Use [Docker](https://github.com/docker) where possible
 
 
-### Using some queue elements
+
+**Pub/Sub/Queue**
 - [ ] Send e-mail after creating a client successfully?
