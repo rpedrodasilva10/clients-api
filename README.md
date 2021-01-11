@@ -23,7 +23,7 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 - [ ] Use [Docker](https://github.com/docker) where possible
 
 **Third part libs**
-- [] Try [ModelMapper](https://github.com/modelmapper/modelmapper)
+- [X] Try [ModelMapper](https://github.com/modelmapper/modelmapper)
 
 **Tests**
 - [] Try [JUnit](https://github.com/junit-team/junit5)

@@ -4,6 +4,7 @@ import br.clientsapi.clientsapi.dto.ClientInputDto;
 import br.clientsapi.clientsapi.entity.Client;
 import br.clientsapi.clientsapi.exception.ApiException;
 import br.clientsapi.clientsapi.service.ClientService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/clients")
 public class ClientController {
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @Autowired
     ClientService clientService;
@@ -35,7 +39,7 @@ public class ClientController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Client createClient(@RequestBody ClientInputDto clientInputDto) {
-        return clientService.createClient(clientInputDto.toClient());
+        return clientService.createClient(modelMapper.map(clientInputDto, Client.class));
     }
 
     @DeleteMapping("/{id}")
