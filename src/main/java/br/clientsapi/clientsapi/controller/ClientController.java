@@ -50,7 +50,7 @@ public class ClientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Client> updateClient(@RequestBody ClientInputDto clientDto) {
-        Client targetClient = this.clientService.updateClient(clientDto.toClient());
+        Client targetClient = this.clientService.updateClient(modelMapper.map(clientDto, Client.class));
         if (targetClient != null) {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
