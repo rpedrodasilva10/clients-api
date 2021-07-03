@@ -1,8 +1,8 @@
-package br.clientsapi.clientsapi.repository;
+package br.api.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.clientsapi.clientsapi.entity.Client;
+import br.api.entity.Client;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 }

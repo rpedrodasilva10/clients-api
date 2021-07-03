@@ -1,4 +1,4 @@
-package br.clientsapi.clientsapi.exception;
+package br.api.exception;
 
 
 import org.springframework.http.HttpStatus;

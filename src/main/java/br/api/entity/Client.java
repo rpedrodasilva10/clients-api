@@ -1,4 +1,4 @@
-package br.clientsapi.clientsapi.entity;
+package br.api.entity;
 
 import java.time.LocalDate;
 

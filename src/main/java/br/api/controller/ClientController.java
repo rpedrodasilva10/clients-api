@@ -1,9 +1,9 @@
-package br.clientsapi.clientsapi.controller;
+package br.api.controller;
 
-import br.clientsapi.clientsapi.dto.ClientInputDto;
-import br.clientsapi.clientsapi.entity.Client;
-import br.clientsapi.clientsapi.exception.ApiException;
-import br.clientsapi.clientsapi.service.ClientService;
+import br.api.entity.Client;
+import br.api.exception.ApiException;
+import br.api.dto.ClientInputDto;
+import br.api.service.ClientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

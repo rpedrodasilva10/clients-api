@@ -1,8 +1,8 @@
-package br.clientsapi.clientsapi.service;
+package br.api.service;
 
-import br.clientsapi.clientsapi.entity.Client;
-import br.clientsapi.clientsapi.exception.ApiException;
-import br.clientsapi.clientsapi.repository.ClientRepository;
+import br.api.entity.Client;
+import br.api.exception.ApiException;
+import br.api.repository.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

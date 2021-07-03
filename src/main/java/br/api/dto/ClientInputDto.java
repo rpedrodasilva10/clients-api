@@ -1,4 +1,4 @@
-package br.clientsapi.clientsapi.dto;
+package br.api.dto;
 
 import java.time.LocalDate;
 
