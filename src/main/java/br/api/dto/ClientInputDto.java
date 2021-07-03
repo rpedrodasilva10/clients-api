@@ -1,8 +1,8 @@
 package br.api.dto;
 
-import java.time.LocalDate;
-
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 public class ClientInputDto {

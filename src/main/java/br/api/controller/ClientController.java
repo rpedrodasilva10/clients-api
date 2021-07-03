@@ -1,9 +1,11 @@
 package br.api.controller;
 
+import br.api.dto.ClientInputDto;
 import br.api.entity.Client;
 import br.api.exception.ApiException;
-import br.api.dto.ClientInputDto;
 import br.api.service.ClientService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/v1/clients")
+@Slf4j
 public class ClientController {
 
     @Autowired
@@ -38,8 +41,8 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Client createClient(@RequestBody ClientInputDto clientInputDto) {
-        return clientService.createClient(modelMapper.map(clientInputDto, Client.class));
+    public Client createClient(@RequestBody ClientInputDto clientInputDto) throws JsonProcessingException {
+        return clientService.createClient(clientInputDto);
     }
 
     @DeleteMapping("/{id}")
@@ -49,10 +52,10 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Client> updateClient(@RequestBody ClientInputDto clientDto) {
-        Client targetClient = this.clientService.updateClient(modelMapper.map(clientDto, Client.class));
+    public ResponseEntity<Client> updateClient(@PathVariable long id, @RequestBody ClientInputDto clientDto) throws ApiException {
+        Client targetClient = this.clientService.updateClient(id, clientDto);
         if (targetClient != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return new ResponseEntity<>(targetClient, HttpStatus.OK);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
