@@ -26,7 +26,13 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 - [X] Try [ModelMapper](https://github.com/modelmapper/modelmapper)
 
 **Tests**
-- [] Try [JUnit](https://github.com/junit-team/junit5)
+- [ ] Try [JUnit](https://github.com/junit-team/junit5) to implement tests for each functionality
+    - [ ] Create client
+    - [ ] Update client
+    - [ ] Delete client
+    - [ ] Get all clients
+    - [ ] Find a client by ID
+    
 
 **Pub/Sub/Queue**
 - [ ] Send e-mail after creating a client successfully?
