@@ -15,11 +15,11 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 - [X] Control all operations above with DTO's pattern.
 
 **Implement Exception handling**
-- [ ] Create models and classes for exception handling
-- [ ] Define exception handling in the service layer 
+- [X] Create models and classes for exception handling
+- [X] Define exception handling in the service layer 
 
 **Database** 
-- [ ] Persist the previous task results with [PostgreSQL](https://github.com/postgres)
+- [X] Persist the previous task results with [PostgreSQL](https://github.com/postgres)
 - [ ] Use [Docker](https://github.com/docker) where possible
 
 **Third part libs**
