@@ -4,7 +4,6 @@ import br.api.dto.ClientInputDto;
 import br.api.entity.Client;
 import br.api.exception.ApiException;
 import br.api.service.ClientService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Client createClient(@RequestBody ClientInputDto clientInputDto) throws JsonProcessingException {
+    public Client createClient(@RequestBody ClientInputDto clientInputDto) throws ApiException {
         return clientService.createClient(clientInputDto);
     }
 

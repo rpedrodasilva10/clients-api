@@ -3,6 +3,7 @@ package br.api.service;
 import br.api.dto.ClientInputDto;
 import br.api.entity.Client;
 import br.api.exception.ApiException;
+import br.api.exception.custom.ClientNotFoundException;
 import br.api.repository.ClientRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,50 +38,48 @@ public class ClientService {
         log.info("[getClientById] :: Buscando cliente com ID: {}", clientId);
         Optional<Client> optClient = repository.findById(clientId);
         if (optClient.isEmpty()) {
-            throw new ApiException(HttpStatus.NOT_FOUND.value(), "Dados de entrada inválidos!", "Cliente não encontrado", new Exception());
+            throw new ClientNotFoundException(clientId);
         }
         return optClient.get();
-
     }
 
-    public Client createClient(ClientInputDto inputDto) throws JsonProcessingException {
-        log.info("[createClient] :: Criando cliente com body: {}", jsonObjectMapper.writeValueAsString(inputDto));
-        Client newClient = mapper.map(inputDto, Client.class);
-        return repository.save(newClient);
+    public Client createClient(ClientInputDto inputDto) throws ApiException {
+        final String defaultFailureMessage = "Não foi possível CRIAR o cliente!";
+        try {
+            log.info("[createClient] :: Criando cliente com body: {}", jsonObjectMapper.writeValueAsString(inputDto));
+            Client newClient = mapper.map(inputDto, Client.class);
+            return repository.save(newClient);
+        } catch (JsonProcessingException jsonProcessingException) {
+            throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR.value(), defaultFailureMessage, "Não foi possível processar o JSON de entrada", jsonProcessingException);
+        }
     }
 
     public void deleteClient(Long clientId) throws ApiException {
-        try {
-            log.info("[deleteClient] :: Deletando cliente com ID: {}", clientId);
-            Optional<Client> optClient = repository.findById(clientId);
-            if (optClient.isPresent()) {
-                repository.delete(optClient.get());
-            } else {
-                throw new ApiException(HttpStatus.BAD_REQUEST.value(), "Cliente não encontrado.", "Não foi possível localizar o cliente", new Exception());
-            }
-        } catch (Exception e) {
-            throw new ApiException(HttpStatus.BAD_REQUEST.value(), "Não foi possível deletar o recurso.", e.getLocalizedMessage(), e);
+        log.info("[deleteClient] :: Deletando cliente com ID: {}", clientId);
+        Optional<Client> optClient = repository.findById(clientId);
+
+        if (optClient.isEmpty()) {
+            throw new ClientNotFoundException(clientId);
         }
+
+        repository.delete(optClient.get());
     }
 
-    public Client updateClient(long id, ClientInputDto inputDto) throws ApiException {
-        try {
-            log.info("[updateClient] :: Atualizando cliente com ID: {}", id);
-            Client clientData = mapper.map(inputDto, Client.class);
-            Optional<Client> optionalClient = repository.findById(id);
-            if (optionalClient.isPresent()) {
-                Client targetClient = optionalClient.get();
-                targetClient.setBirthDate(clientData.getBirthDate());
-                targetClient.setName(clientData.getName());
-                targetClient.setEmail(clientData.getEmail());
-                targetClient.setSurname(clientData.getSurname());
+    public Client updateClient(long clientId, ClientInputDto inputDto) throws ApiException {
+        log.info("[updateClient] :: Atualizando cliente com ID: {}", clientId);
+        Client clientData = mapper.map(inputDto, Client.class);
+        Optional<Client> optionalClient = repository.findById(clientId);
 
-                return repository.save(targetClient);
-            }
-            return null;
-        } catch (Exception e) {
-            throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Não foi possível atualizar o recurso.", e.getLocalizedMessage(), e);
+        if (optionalClient.isEmpty()) {
+            throw new ClientNotFoundException(clientId);
         }
-    }
 
+        Client targetClient = optionalClient.get();
+        targetClient.setBirthDate(clientData.getBirthDate());
+        targetClient.setName(clientData.getName());
+        targetClient.setEmail(clientData.getEmail());
+        targetClient.setSurname(clientData.getSurname());
+
+        return repository.save(targetClient);
+    }
 }
