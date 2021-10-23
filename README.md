@@ -33,4 +33,4 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 - [ ] Try [JUnit](https://github.com/junit-team/junit5)
 
 **Pub/Sub/Queue**
-- [ ] Send e-mail after creating a client successfully
+- [X] Send e-mail after creating a client successfully
