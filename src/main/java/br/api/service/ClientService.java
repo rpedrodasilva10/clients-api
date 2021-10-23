@@ -29,6 +29,9 @@ public class ClientService {
     @Autowired
     ObjectMapper jsonObjectMapper;
 
+    @Autowired
+    MailSenderService mailSenderService;
+
     public List<Client> getAllClients() {
         log.info("[getAllClients] :: Listando todos os clientes");
         return repository.findAll();
@@ -49,7 +52,11 @@ public class ClientService {
             log.info("[createClient] :: Criando cliente com body: {}",
                     jsonObjectMapper.writeValueAsString(inputDto));
             Client newClient = mapper.map(inputDto, Client.class);
-            return repository.save(newClient);
+            Client savedClient = repository.save(newClient);
+
+            this.mailSenderService.sendMail(savedClient.getEmail());
+
+            return savedClient;
         } catch (JsonProcessingException jsonProcessingException) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR.value(), defaultFailureMessage,
                     "Não foi possível processar o JSON de entrada", jsonProcessingException);
