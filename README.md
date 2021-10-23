@@ -2,7 +2,24 @@
 
 ## Objective
 
-The objective with this project is to study and test Spring Boot API's with JPA, Lombok, and Heroku deploys.
+The objective with this project is to study and test Spring Boot API's with JPA, [Lombok](https://projectlombok.org
+), and [Heroku](https://www.heroku.com) deploys.
+
+# Running locally
+### What you will need
+
+* [Maven](https://maven.apache.org/)
+* [JDK](https://www.oracle.com/java/technologies/downloads/) 11 or later
+* [Docker](https://github.com/docker)
+* [docker-compose](https://github.com/docker/compose)
+
+### Building and starting the application:
+Inside the project's folder open the terminal and execute the commands bellow  
+```sh
+mvn clean package # Creates JAR file 
+docker-compose up # Spin up all necessary containers
+```
+
 
 # Tasks and Status
 
@@ -25,6 +42,7 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 **Virtualization** 
 - [X] Use [Docker](https://github.com/docker)
 - [X] Use [docker-compose](https://github.com/docker/compose) to manage containers spin up/down
+- [ ] Use environment files to load the container variables dependencies 
 
 **Third part libs**
 - [X] Try [ModelMapper](https://github.com/modelmapper/modelmapper)
@@ -32,5 +50,11 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 **Tests**
 - [ ] Try [JUnit](https://github.com/junit-team/junit5)
 
-**Pub/Sub/Queue**
+**Mail**
 - [X] Send e-mail after creating a client successfully
+- [ ] Create a separate service to send email
+- [ ] Use some topic/subscription structure send emails independently
+- [ ] Change the ClientService to send     
+
+**Docs**
+- [ ] Add swagger [OpenAPI](https://swagger.io/specification/) specification
