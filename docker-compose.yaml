@@ -16,7 +16,6 @@ services:
       - DB_PASSWORD=admin
       - DB_JPA_DIALECT=org.hibernate.dialect.PostgreSQLDialect
       - DB_JPA_DDL_AUTO=update
-      - PGDATA=/data/postgres
 
     ports:
       - 8080:8080
