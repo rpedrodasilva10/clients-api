@@ -54,7 +54,7 @@ docker-compose up # Spin up all necessary containers
 - [X] Send e-mail after creating a client successfully
 - [ ] Create a separate service to send email
 - [ ] Use some topic/subscription structure send emails independently
-- [ ] Change the ClientService to send     
+- [ ] Refactor the ClientService to send emails using messages to a topic or queue
 
 **Docs**
 - [ ] Add swagger [OpenAPI](https://swagger.io/specification/) specification
