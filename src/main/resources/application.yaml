@@ -10,3 +10,10 @@ spring:
         dialect: ${DB_JPA_DIALECT}
     hibernate:
       ddl-auto: ${DB_JPA_DDL_AUTO}
+mail:
+  host: ${MAIL_HOST}
+  user: ${MAIL_USER}
+  password: ${MAIL_PASSWORD}
+  port: ${MAIL_PORT}
+  from: ${MAIL_FROM}
+
