@@ -21,7 +21,10 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 
 **Database**
 - [X] Persist the previous task results with [PostgreSQL](https://github.com/postgres)
-- [ ] Use [Docker](https://github.com/docker) where possible
+
+**Virtualization** 
+- [X] Use [Docker](https://github.com/docker)
+- [X] Use [docker-compose](https://github.com/docker/compose) to manage containers spin up/down
 
 **Third part libs**
 - [X] Try [ModelMapper](https://github.com/modelmapper/modelmapper)

@@ -11,7 +11,7 @@
     <groupId>br.clientsapi</groupId>
     <artifactId>clientsapi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>clients-api:</name>
+    <name>clients-api</name>
     <description>Clients API Project with Spring boot and docker</description>
 
     <properties>
@@ -80,10 +80,20 @@
     </dependencies>
 
     <build>
+        <finalName>app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
