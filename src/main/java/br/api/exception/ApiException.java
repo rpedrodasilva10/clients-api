@@ -35,4 +35,13 @@ public class ApiException extends Exception {
 
         ex.printStackTrace();
     }
+
+    public ApiException(Integer code, String message, String nativeMessage) {
+        super(nativeMessage);
+        this.code = code;
+        this.message = message;
+        this.nativeMessage = nativeMessage;
+        this.apiResponse = new ApiResponse(code, message, nativeMessage, new ArrayList<>());
+
+    }
 }
