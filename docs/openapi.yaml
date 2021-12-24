@@ -8,11 +8,11 @@ info:
     name: 'Renan Pedro da Silva'
     email: 'rpedrodasilva10@gmail.com'
 
-host: localhost:8080
+host: springboot-clients-api.herokuapp.com
 
 basePath: /api/v1
 schemes:
-  - http
+  - https
 tags:
   - name: Public
     description: Public operations
