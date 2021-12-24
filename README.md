@@ -16,6 +16,7 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 ### Building and starting the application:
 Inside the project's folder open the terminal and execute the commands bellow  
 ```sh
+cp env.example.properties .env # Copy env example as .env
 mvn clean package # Creates JAR file 
 docker-compose up # Spin up all necessary containers
 ```
@@ -53,7 +54,7 @@ docker-compose up # Spin up all necessary containers
 **Mail**
 - [X] Send e-mail after creating a client successfully
 - [ ] Create a separate service to send email
-- [ ] Use some topic/subscription structure send emails independently
+- [ ] Use some topic/subscription structure to send emails independently
 - [ ] Refactor the ClientService to send emails using messages to a topic or queue
 
 **Docs**
