@@ -9,13 +9,8 @@ services:
     container_name: app
     depends_on:
       - db
-    environment:
-      - DB_URL=jdbc:postgresql://db:5432/clients_db
-      - DB_DATA_SOURCE_DRIVER=org.postgresql.Driver
-      - DB_USER=postgres
-      - DB_PASSWORD=admin
-      - DB_JPA_DIALECT=org.hibernate.dialect.PostgreSQLDialect
-      - DB_JPA_DDL_AUTO=update
+    env_file:
+      - .env
 
     ports:
       - 8080:8080
@@ -23,8 +18,8 @@ services:
     image: 'postgres'
     container_name: db
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=clients_db
     ports:
       - 5432:5432
