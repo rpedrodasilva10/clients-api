@@ -3,7 +3,7 @@
 ## Objective
 
 The objective with this project is to study and test Spring Boot API's with JPA, [Lombok](https://projectlombok.org
-), and [Heroku](https://www.heroku.com) deploys.
+) and [Heroku](https://www.heroku.com) deploys.
 
 # Running locally
 ### What you will need
@@ -14,9 +14,19 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 * [docker-compose](https://github.com/docker/compose)
 
 ### Building and starting the application:
-Inside the project's folder open the terminal and execute the commands bellow  
+Clone the repo and navigate to the project's folder open the terminal and execute the commands bellow  
 ```sh
 cp env.example.properties .env # Copy env example as .env
+```
+The API's sending e-mail feature depends on configuration, so, to test this scenario, you need to configure mail server information
+```markdown
+MAIL_HOST=
+MAIL_USER=
+MAIL_PASSWORD=
+MAIL_PORT=
+```
+After that, you're good to go. Run: 
+```sh
 mvn clean package # Creates JAR file 
 docker-compose up # Spin up all necessary containers
 ```
@@ -43,13 +53,13 @@ docker-compose up # Spin up all necessary containers
 **Virtualization** 
 - [X] Use [Docker](https://github.com/docker)
 - [X] Use [docker-compose](https://github.com/docker/compose) to manage containers spin up/down
-- [ ] Use environment files to load the container variables dependencies 
+- [X] Use environment files to load the container variables dependencies 
 
 **Third part libs**
 - [X] Try [ModelMapper](https://github.com/modelmapper/modelmapper)
 
 **Tests**
-- [ ] Try [JUnit](https://github.com/junit-team/junit5)
+- [X] Try [JUnit](https://github.com/junit-team/junit5)
 
 **Mail**
 - [X] Send e-mail after creating a client successfully
