@@ -58,4 +58,4 @@ docker-compose up # Spin up all necessary containers
 - [ ] Refactor the ClientService to send emails using messages to a topic or queue
 
 **Docs**
-- [ ] Add swagger [OpenAPI](https://swagger.io/specification/) specification
+- [X] Add swagger [OpenAPI](https://swagger.io/specification/) specification
