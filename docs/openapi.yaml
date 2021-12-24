@@ -1,0 +1,314 @@
+swagger: '2.0'
+
+info:
+  description: Provide CRUD operations for Client domain
+  version: 1.0.0
+  title: Clients
+  contact:
+    name: 'Renan Pedro da Silva'
+    email: 'rpedrodasilva10@gmail.com'
+
+host: localhost:8080
+
+basePath: /api/v1
+schemes:
+  - http
+tags:
+  - name: Public
+    description: Public operations
+
+parameters:
+  id:
+    in: path
+    name: id
+    required: true
+    type: string
+    description: 'Client id used in client specific operations'
+  client:
+    in: body
+    name: client
+    required: true
+    schema:
+      $ref: '#/definitions/Client'
+    description: 'Payload to create or update a client'
+
+responses:
+  200-Ok:
+    description: 'Successful Request'
+    schema:
+      $ref: '#/definitions/Client'
+  200-OkList:
+    description: 'Successful Request'
+    schema:
+      $ref: '#/definitions/ClientList'
+  201-Created:
+    description: 'Created'
+    schema:
+      $ref: '#/definitions/Client'
+  204-NoContent:
+    description: 'No content'
+  400-BadRequest:
+    description: 'Bad request'
+    schema:
+      $ref: '#/definitions/ApiError'
+  401-Unauthorized:
+    description: 'Unauthorized'
+    schema:
+      $ref: '#/definitions/ApiError'
+  403-Forbidden:
+    description: 'Forbidden'
+    schema:
+      $ref: '#/definitions/ApiError'
+  404-NotFound:
+    description: 'Not found'
+    schema:
+      $ref: '#/definitions/ApiError'
+  405-DataInvalid:
+    description: 'Data input not supplied or invalid'
+    schema:
+      $ref: '#/definitions/ApiError'
+  453-BusinessError:
+    description: 'Business Exception'
+    schema:
+      $ref: '#/definitions/BusinessError'
+  500-Exception:
+    description: 'Internal Server Error'
+    schema:
+      $ref: '#/definitions/ApiError'
+
+paths:
+  /clients:
+    get:
+      tags:
+        - Public
+      description: Get all clients info
+      operationId: getAllClients
+      produces:
+        - application/json
+      responses:
+        200:
+          $ref: '#/responses/200-OkList'
+        400:
+          $ref: '#/responses/400-BadRequest'
+        401:
+          $ref: '#/responses/401-Unauthorized'
+        403:
+          $ref: '#/responses/403-Forbidden'
+        404:
+          $ref: '#/responses/404-NotFound'
+        405:
+          $ref: '#/responses/405-DataInvalid'
+        500:
+          $ref: '#/responses/500-Exception'
+    post:
+      tags:
+        - Public
+      description: Create a client
+      operationId: createClient
+      produces:
+        - application/json
+      responses:
+        201:
+          $ref: '#/responses/201-Created'
+        400:
+          $ref: '#/responses/400-BadRequest'
+        401:
+          $ref: '#/responses/401-Unauthorized'
+        403:
+          $ref: '#/responses/403-Forbidden'
+        405:
+          $ref: '#/responses/405-DataInvalid'
+        500:
+          $ref: '#/responses/500-Exception'
+
+  /clients/{id}:
+    get:
+      tags:
+        - Public
+      description: Get an specific client
+      operationId: getClient
+      parameters:
+        - $ref: '#/parameters/id'
+      produces:
+        - application/json
+      responses:
+        200:
+          $ref: '#/responses/200-Ok'
+        400:
+          $ref: '#/responses/400-BadRequest'
+        401:
+          $ref: '#/responses/401-Unauthorized'
+        403:
+          $ref: '#/responses/403-Forbidden'
+        404:
+          $ref: '#/responses/404-NotFound'
+        405:
+          $ref: '#/responses/405-DataInvalid'
+        500:
+          $ref: '#/responses/500-Exception'
+    delete:
+      tags:
+        - Public
+      description: Delete an specific client
+      operationId: deleteClient
+      parameters:
+        - $ref: '#/parameters/id'
+      produces:
+        - application/json
+      responses:
+        204:
+          $ref: '#/responses/204-NoContent'
+        400:
+          $ref: '#/responses/400-BadRequest'
+        401:
+          $ref: '#/responses/401-Unauthorized'
+        403:
+          $ref: '#/responses/403-Forbidden'
+        404:
+          $ref: '#/responses/404-NotFound'
+        405:
+          $ref: '#/responses/405-DataInvalid'
+        500:
+          $ref: '#/responses/500-Exception'
+
+    put:
+      tags:
+        - Public
+      description: Update an specific client
+      operationId: updateClient
+      parameters:
+        - $ref: '#/parameters/id'
+        - $ref: '#/parameters/client'
+      produces:
+        - application/json
+      responses:
+        200:
+          $ref: '#/responses/200-Ok'
+        400:
+          $ref: '#/responses/400-BadRequest'
+        401:
+          $ref: '#/responses/401-Unauthorized'
+        403:
+          $ref: '#/responses/403-Forbidden'
+        404:
+          $ref: '#/responses/404-NotFound'
+        405:
+          $ref: '#/responses/405-DataInvalid'
+        500:
+          $ref: '#/responses/500-Exception'
+
+definitions:
+  ApiError:
+    type: object
+    description: 'Error API responses'
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: 'Error ID'
+      message:
+        type: string
+        description: 'Error Description'
+      description:
+        type: string
+        description: 'Error Details'
+      errors:
+        type: array
+        description: 'Membership Erros'
+        items:
+          $ref: '#/definitions/Error'
+
+  BusinessError:
+    type: object
+    title: 'BusinessError'
+    description: 'Error API response'
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: 'Error ID'
+      message:
+        type: string
+        description: 'Error Details'
+      description:
+        type: string
+        description: 'Error Details'
+      errors:
+        type: array
+        description: 'Membership Errors'
+        items:
+          $ref: '#/definitions/Error'
+      businessNotifications:
+        type: array
+        description: 'Membership Errors'
+        items:
+          $ref: '#/definitions/BusinessNotifications'
+
+  Error:
+    type: object
+    description: 'Error Entity'
+    properties:
+      code:
+        type: string
+        description: 'Error ID'
+      message:
+        type: string
+        description: 'Error Description'
+      nativeMessage:
+        type: string
+        description: 'Native Error description'
+
+  BusinessNotifications:
+    type: object
+    description: 'Error Entity'
+    properties:
+      code:
+        type: string
+        description: 'Error ID'
+      description:
+        type: string
+        description: 'Error Description'
+      type:
+        type: string
+        description: 'info | warning'
+
+  ClientList:
+    type: array
+    title: ClientList
+    description: 'Object to describe a list composed by multiple instances of Client entity'
+    items:
+      $ref: '#/definitions/Client'
+
+  Client:
+    type: object
+    title: Client
+    description: 'Object to describe a single Client entity'
+    properties:
+      id:
+        type: integer
+        description: 'Client unique identifier'
+        example: 1
+      name:
+        type: string
+        description: 'Client name'
+        example: 'Renan'
+      surname:
+        type: string
+        description: 'Client surname'
+        example: 'Silva'
+      email:
+        type: string
+        description: 'Client email'
+        format: email
+      birthDate:
+        type: string
+        description: 'Client birth date'
+        format: date
+      createdAt:
+        type: string
+        description: 'Date and time of creation'
+        format: date-time
+      updatedAt:
+        type: string
+        description: 'Date and time of the last update'
+        format: date-time
