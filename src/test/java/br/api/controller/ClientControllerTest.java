@@ -1,8 +1,10 @@
 package br.api.controller;
 
+import br.api.dto.ClientInputDto;
 import br.api.entity.Client;
 import br.api.exception.custom.ClientNotFoundException;
 import br.api.service.ClientService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
@@ -77,6 +79,29 @@ class ClientControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get(API_BASE_PATH + "/clients/" + clientId).contentType(MediaType.APPLICATION_JSON)).
                 andExpect(status().isBadRequest())
+                .andDo(print());
+    }
+
+    @Test
+    void createClient() throws Exception {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        ClientInputDto clientInputDTO = new ClientInputDto();
+        clientInputDTO.setEmail("example@example.com");
+        clientInputDTO.setName("Renan Pedro");
+        clientInputDTO.setSurname("Silva");
+        clientInputDTO.setBirthDate(LocalDate.of(1994, 6, 29));
+
+        Client clientToBeCreated = modelMapper.map(clientInputDTO, Client.class);
+
+        when(service.createClient(clientInputDTO)).thenReturn(clientToBeCreated);
+
+        String objectAsJsonString = objectMapper.writeValueAsString(clientToBeCreated);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post(API_BASE_PATH + "/clients").contentType(MediaType.APPLICATION_JSON).content(objectAsJsonString))
+                .andExpect(status().isCreated())
                 .andDo(print());
     }
 }
