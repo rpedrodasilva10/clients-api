@@ -81,7 +81,8 @@ paths:
     get:
       tags:
         - Public
-      description: Get all clients info
+      summary: Get clients
+      description: Get all available clients in the database
       operationId: getAllClients
       produces:
         - application/json
@@ -103,7 +104,8 @@ paths:
     post:
       tags:
         - Public
-      description: Create a client
+      summary: Create a new client
+      description: Save a new client in the database by filling all the required fields
       operationId: createClient
       produces:
         - application/json
@@ -125,7 +127,8 @@ paths:
     get:
       tags:
         - Public
-      description: Get an specific client
+      summary: Get a client
+      description: Get a specific client by passing the unique identifier
       operationId: getClient
       parameters:
         - $ref: '#/parameters/id'
@@ -149,7 +152,8 @@ paths:
     delete:
       tags:
         - Public
-      description: Delete an specific client
+      summary: Delete a client
+      description: Delete a specific client by passing the unique identifier
       operationId: deleteClient
       parameters:
         - $ref: '#/parameters/id'
@@ -174,7 +178,8 @@ paths:
     put:
       tags:
         - Public
-      description: Update an specific client
+      summary: Update a client
+      description: Update a specific client given the unique identifier
       operationId: updateClient
       parameters:
         - $ref: '#/parameters/id'
