@@ -1,6 +1,4 @@
-# Simple clients API 
-
-## Objective
+# clients-api
 
 The objective with this project is to study and test Spring Boot API's with JPA, [Lombok](https://projectlombok.org 
 ), and [Heroku](https://www.heroku.com) deploys 😎.
@@ -14,6 +12,8 @@ The objective with this project is to study and test Spring Boot API's with JPA,
 <a href="https://www.heroku.com" target="_blank"><img src="https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white" target="_blank" ></a> 
 <a href="https://www.postgresql.org/" target="_blank"><img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" target="_blank" ></a> 
 
+# Documentation
+[![](https://raw.githubusercontent.com/swagger-api/swagger.io/wordpress/images/assets/SW-logo-clr.png)](https://app.swaggerhub.com/apis-docs/rpedrodasilva10/Clients/1.0.0)
 
 
 
