@@ -16,4 +16,10 @@ mail:
   password: ${MAIL_PASSWORD}
   port: ${MAIL_PORT}
   from: ${MAIL_FROM}
-
+info:
+  application:
+    name: Clients API
+    description: Simple API providing CRUD operations for Client domain
+    author:
+      name: Renan Silva
+      bio: Avid and curious learner
