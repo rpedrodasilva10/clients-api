@@ -72,10 +72,12 @@ docker-compose up # Spin up all necessary containers
 
 **Tests** 
 - [X] Try [JUnit](https://github.com/junit-team/junit5)
+- [X] Add ClientService tests
+- [X] Add ClientController tests
 
 **Mail**
 - [X] Send e-mail after creating a client successfully
-- [ ] Create a separate service to send email
+- [X] Create a separate service to send email
 - [ ] Use some topic/subscription structure to send emails independently
 - [ ] Refactor the ClientService to send emails using messages to a topic or queue
 
