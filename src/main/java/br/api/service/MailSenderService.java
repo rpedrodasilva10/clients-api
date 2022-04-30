@@ -18,19 +18,19 @@ import java.util.Properties;
 public class MailSenderService {
 
     @Value("${mail.host}")
-    private String MAIL_HOST;
+    private String mailHost;
 
     @Value("${mail.user}")
-    private String MAIL_USER;
+    private String mailUser;
 
     @Value("${mail.password}")
-    private String MAIL_PASSWORD;
+    private String mailPassword;
 
     @Value("${mail.port}")
-    private String MAIL_PORT;
+    private String mailPort;
 
     @Value("${mail.from}")
-    private String MAIL_FROM;
+    private String mailFrom;
 
 
     public void sendMail(String clientEmail) throws ApiException {
@@ -39,19 +39,18 @@ public class MailSenderService {
         try {
             Message message = new MimeMessage(this.getMailSession());
 
-            message.setFrom(new InternetAddress(MAIL_FROM));
+            message.setFrom(new InternetAddress(mailFrom));
 
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(clientEmail));
 
             message.setSubject("Cadastro realizado");
 
-            //message.setText("<h1>Hi there, this is my first message sent with JavaMail</h1>");
 
             Multipart multipart = new MimeMultipart("related");
 
             MimeBodyPart htmlPart = new MimeBodyPart();
-            //add reference to your image to the HTML body <img src="cid:some-image-cid" alt="img" />
+
             String mailHtmlContent = this.createHtmlText();
             htmlPart.setText(mailHtmlContent, "utf-8", "html");
             multipart.addBodyPart(htmlPart);
@@ -74,11 +73,11 @@ public class MailSenderService {
     }
 
     private String createHtmlText() {
-        String BODY_DEFAULT_MESSAGE = "<p>This is a body</p>";
-        String FOOTER = "<br />\n" +
+        String bodyDefaultMessage = "<p>This is a body</p>";
+        String footer = "<br />\n" +
                 "<strong>Equipe Clients</strong>";
         return "<div style=\"font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #222; max-width: 600px\"> " +
-                BODY_DEFAULT_MESSAGE + FOOTER +
+                bodyDefaultMessage + footer +
                 "</div>";
     }
 
@@ -87,7 +86,7 @@ public class MailSenderService {
                 new javax.mail.Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(MAIL_USER, MAIL_PASSWORD);
+                        return new PasswordAuthentication(mailUser, mailPassword);
                     }
                 });
 
@@ -97,8 +96,8 @@ public class MailSenderService {
         Properties props = new Properties();
 
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.host", MAIL_HOST);
-        props.put("mail.smtp.port", MAIL_PORT);
+        props.put("mail.smtp.host", mailHost);
+        props.put("mail.smtp.port", mailPort);
 
         return props;
     }

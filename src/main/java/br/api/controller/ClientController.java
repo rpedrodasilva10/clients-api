@@ -19,8 +19,6 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/clients")
 @Slf4j
 public class ClientController {
-    //(value = "/api/v1/clients")
-
     @Autowired
     ModelMapper modelMapper;
 
@@ -52,10 +50,7 @@ public class ClientController {
     @PutMapping("/{id}")
     public ResponseEntity<Client> updateClient(@PathVariable long id,
                                                @RequestBody ClientInputDto clientDto) throws ApiException {
-        Client targetClient = this.clientService.updateClient(id, clientDto);
-        if (targetClient != null) {
-            return new ResponseEntity<>(targetClient, HttpStatus.OK);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return new ResponseEntity<>(this.clientService.updateClient(id, clientDto), HttpStatus.OK);
     }
 }
