@@ -3,10 +3,10 @@ package br.api.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.ArrayList;
@@ -34,19 +34,24 @@ public class ApiControllerAdvice {
                 HttpStatus.valueOf(apiException.getCode()));
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse> handleValidationException(
-            MethodArgumentNotValidException ex, WebRequest request) {
-        List<ApiError> errorList = new ArrayList<>();
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ResponseEntity<ApiResponse> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        BindingResult result = ex.getBindingResult();
+        List<ApiError> errors = new ArrayList<>();
+        result.getFieldErrors().parallelStream().forEach(fieldError ->
+                errors.add(new ApiError(fieldError.getCode(), fieldError.getDefaultMessage())));
 
-        ex.getBindingResult().getFieldErrors().forEach(
-                error -> errorList.add(new ApiError(error.getCode(), error.getDefaultMessage(), error.getField()))
-        );
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ApiResponse.builder()
+                                .code(1)
+                                .message("Corpo da requisição inválido!")
+                                .errors(errors)
+                                .description("Falha na validação estrutural! Verifique a lista de erros para mais detalhes").build()
 
-        ApiException apiException = new ApiException(HttpStatus.BAD_REQUEST.value(), "Dados de entrada inválidos!", "Falha na validação dos dados informados", ex, errorList);
 
-        return new ResponseEntity<>(apiException.getApiResponse(),
-                HttpStatus.BAD_REQUEST);
+                );
     }
 
     @ExceptionHandler(Exception.class)

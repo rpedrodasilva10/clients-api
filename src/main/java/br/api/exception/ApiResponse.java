@@ -1,12 +1,14 @@
 package br.api.exception;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+@Builder
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ApiResponse {
 
     private Integer code;

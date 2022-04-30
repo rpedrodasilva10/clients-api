@@ -8,5 +8,10 @@ import lombok.Getter;
 public class ApiError {
     private final String code;
     private final String message;
-    private final String nativeMessage;
+    private String nativeMessage;
+
+    public ApiError(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 }
