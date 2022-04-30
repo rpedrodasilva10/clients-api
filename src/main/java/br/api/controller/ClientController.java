@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RestController
+@RestController(value = "/api/v1/clients")
 @Slf4j
 public class ClientController {
 
@@ -25,29 +25,29 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @GetMapping({"/api/v1/clients", "/"})
+    @GetMapping({"", "/"})
     public List<Client> listClients() {
         return clientService.getAllClients();
     }
 
-    @GetMapping("/api/v1/clients/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Client> getClientById(@PathVariable Long id) throws ApiException {
         return ResponseEntity.ok(clientService.getClientById(id));
     }
 
-    @PostMapping("/api/v1/clients")
+    @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Client createClient(@Valid @RequestBody ClientInputDto clientInputDto) throws ApiException {
         return clientService.createClient(clientInputDto);
     }
 
-    @DeleteMapping("/api/v1/clients/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteClient(@PathVariable Long id) throws ApiException {
         this.clientService.deleteClient(id);
     }
 
-    @PutMapping("/api/v1/clients/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Client> updateClient(@PathVariable long id,
                                                @RequestBody ClientInputDto clientDto) throws ApiException {
         Client targetClient = this.clientService.updateClient(id, clientDto);
