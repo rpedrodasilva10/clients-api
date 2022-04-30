@@ -15,9 +15,11 @@ import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RestController(value = "/api/v1/clients")
+@RestController
+@RequestMapping(value = "/api/v1/clients")
 @Slf4j
 public class ClientController {
+    //(value = "/api/v1/clients")
 
     @Autowired
     ModelMapper modelMapper;
